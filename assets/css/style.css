@@ -1,0 +1,27 @@
+body, input, select, textarea, button {
+	font: normal 16px 'Open Sans', sans-serif;
+}
+
+body {
+	color: #222;
+	background: #f0f0f0;
+}
+
+.mono {
+	font-family: 'Source Sans Pro', sans-serif;
+}
+
+main {
+	max-width: 1000px;
+	margin: 0 auto;
+}
+
+a, a:hover, a:active, a:visited {
+	color: #5a0fc8;
+}
+
+a {
+	color: #5a0fc8;
+	font-weight: bold;
+	text-decoration: none;
+}
