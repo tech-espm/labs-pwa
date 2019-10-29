@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<!-- Conteúdo gerado pelo Favicon Helper -->
+	<meta property="og:locale" content="pt_BR" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://tech-espm.github.io/labs-pwa" />
+	<meta property="og:title" content="Workshop PWA" />
+	<meta property="og:site_name" content="Workshop PWA" />
+	<meta property="og:description" content="Material e exemplos do workshop sobre PWA" />
+	<meta property="og:image" content="https://tech-espm.github.io/labs-pwa/assets/images/pwa.png" />
+	<meta property="og:image:type" content="image/png" />
+	<meta property="og:image:width" content="1024" />
+	<meta property="og:image:height" content="1024" />
+	<meta name="author" content="Carlos Rafael Gimenes das Neves" />
+	<meta name="description" content="Material e exemplos do workshop sobre PWA" />
+	<meta name="keywords" content="material, exemplos, workshop, pwa" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="apple-mobile-web-app-title" content="Workshop PWA" />
+	<link rel="apple-touch-icon" sizes="57x57" href="../assets/favicons/apple-icon-57x57.png" />
+	<link rel="apple-touch-icon" sizes="60x60" href="../assets/favicons/apple-icon-60x60.png" />
+	<link rel="apple-touch-icon" sizes="72x72" href="../assets/favicons/apple-icon-72x72.png" />
+	<link rel="apple-touch-icon" sizes="76x76" href="../assets/favicons/apple-icon-76x76.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="../assets/favicons/apple-icon-114x114.png" />
+	<link rel="apple-touch-icon" sizes="120x120" href="../assets/favicons/apple-icon-120x120.png" />
+	<link rel="apple-touch-icon" sizes="144x144" href="../assets/favicons/apple-icon-144x144.png" />
+	<link rel="apple-touch-icon" sizes="152x152" href="../assets/favicons/apple-icon-152x152.png" />
+	<link rel="apple-touch-icon" sizes="180x180" href="../assets/favicons/apple-icon-180x180.png" />
+	<link rel="icon" type="image/png" sizes="512x512" href="../assets/favicons/favicon-512x512.png" />
+	<link rel="icon" type="image/png" sizes="192x192" href="../assets/favicons/favicon-192x192.png" />
+	<link rel="icon" type="image/png" sizes="96x96" href="../assets/favicons/favicon-96x96.png" />
+	<link rel="icon" type="image/png" sizes="48x48" href="../assets/favicons/favicon-48x48.png" />
+	<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicons/favicon-32x32.png" />
+	<link rel="icon" type="image/png" sizes="16x16" href="../assets/favicons/favicon-16x16.png" />
+	<link rel="Shortcut Icon" href="../assets/favicons/favicon.png" />
+	<link rel="manifest" href="manifest.json" />
+	<meta name="msapplication-config" content="browserconfig.xml" />
+	<meta name="theme-color" content="#5a0fc8" />
+	<!-- Fim do conteúdo gerado pelo Favicon Helper -->
+
+	<title>
+		PWA de Exemplo 09
+	</title>
+
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600|Source+Code+Pro&display=swap" />
+	<link rel="stylesheet" type="text/css" href="../assets/css/style.css" />
+
+</head>
+<body>
+	<main>
+
+		<h1>
+			PWA de Exemplo 09
+		</h1>
+
+		<p>
+			Eis o momento de finalmente criarmos um PWA capaz de funcionar offline (o que significa que este é o único PWA de verdade 😉).
+			Para isso, utilizaremos as API's <a href="https://developer.mozilla.org/en-US/docs/Web/API/CacheStorage" target="_blank">Cache Storage</a> e <a href="https://developer.mozilla.org/en-US/docs/Web/API/Cache" target="_blank">Cache API</a>.
+		</p>
+
+		<p>
+			A ideia é armazenar em cache todos os arquivos necessários durante o processo de instalação.
+			A partir daí, toda vez que o evento <span class="codigo">fetch</span> for executado, primeiro iremos tentar retornar o recurso a partir do cache, recorrendo à rede apenas caso o recurso não exista no cache.
+			Essa técnica é conhecida como "Cache First", e ajuda a acelerar muito o desempenho da página, além de aliviar a carga do servidor.
+			Para ver como isso funciona, vamos olhar o <a href="sw.js" target="_blank">arquivo do Service Worker</a>.
+		</p>
+
+		<p>
+			Para testar a questão do funcionamento offline basta utilizar a opção "Offline" nas ferramentas de desenvolvedor, em "Application &gt; Service Workers".
+		</p>
+
+		<p>
+			O estado atual do cache também está nas ferramentas de desenvolvedor, em "Application &gt; Cache &gt; Cache Storage".
+		</p>
+
+		<p class="alerta">
+			Cuidado para não ser enganado pelo cache do próprio navegador!!! Para testar se tudo está OK de verdade, além de marcar a opção "Offline", é preciso marcar a opção "Disable cache" em "Network".
+			Ao fazer isso, veremos que nosso cache não está completo, pois não adicionamos a ele as fontes utilizadas pela página, que são as fontes do Google Fonts.
+			Existe uma forma fácil de fazer isso, sem precisar ficar digitando o nome dos arquivos das fontes do Google (ou qualquer outro recurso de terceiros), como mostrado no arquivo <a href="sw2.js">sw2.js</a> (tente substituir o Service Worker atual por esse, e veja a diferença).
+		</p>
+
+		<p>
+			Por fim, o arquivo <a href="sw3.js" target="_blank">sw3.js</a> mostra uma possível técnica de lidar com casos quando o aplicativo (um jogo, por exemplo) sofrer alterações.
+			Como estamos usando o cache antes de ir buscar na rede, o usuário poderia nunca ver a noa versão do jogo! 😱
+			Assim, para que o usuário final veja as alterações, basta alterar algo no Service Worker, como a string com o nome do cache, o que fará com que o navegador reinstale o Service Worker.
+			Nesse momento criamos um cache com um novo nome, e esperamos o evento <span class="codigo">activate</span> (que indica que nenhum outro cliente está mais utilizando as versões antigas do Service Worker) para excluir o(s) cache(s) antigo(s), removendo dados inúteis do dispositivo do usuário.
+		</p>
+
+		<p>
+			O arquivo <a href="sw-original.js">sw-original.js</a> contém o código original do Service Worker, para caso você se perca durante os experimentos 😁.
+		</p>
+
+		<p>A imagem é só para ter uma imagem, mesmo... 😁</p>
+
+		<img alt="Imagem de exemplo" src="../assets/images/fake.jpg" />
+
+		<hr />
+
+		<p>
+			<small><a href="../">&laquo; Lista de exemplos</a></small>
+		</p>
+
+		<p>
+			<small><a href="../pwa08/">&laquo; Exemplo 08</a></small>
+		</p>
+
+		<p>
+			<small>O código-fonte e as explicações podem ser encontradas no <a href="https://github.com/tech-espm/labs-pwa" target="_blank">GitHub do projeto: github.com/tech-espm/labs-pwa</a> 😊.</small>
+		</p>
+
+	</main>
+
+	<script type="text/javascript">
+		"use strict";
+
+		// Devemos tomar cuidado para registrar o Service Worker apenas se o navegador atual entender o que é isso!
+		if ("serviceWorker" in navigator)
+			navigator.serviceWorker.register("sw.js");
+
+		var contador = 0, divPai = document.getElementById("divPai");
+
+		function adicionarImagem() {
+			var img = document.createElement("img");
+			img.setAttribute("alt", "Imagem de exemplo");
+			img.setAttribute("src", contador + ".jpg");
+
+			divPai.appendChild(img);
+
+			contador++;
+		}
+	</script>
+</body>
+</html>

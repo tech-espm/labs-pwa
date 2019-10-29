@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<!-- Conteúdo gerado pelo Favicon Helper -->
+	<meta property="og:locale" content="pt_BR" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://tech-espm.github.io/labs-pwa" />
+	<meta property="og:title" content="Workshop PWA" />
+	<meta property="og:site_name" content="Workshop PWA" />
+	<meta property="og:description" content="Material e exemplos do workshop sobre PWA" />
+	<meta property="og:image" content="https://tech-espm.github.io/labs-pwa/assets/images/pwa.png" />
+	<meta property="og:image:type" content="image/png" />
+	<meta property="og:image:width" content="1024" />
+	<meta property="og:image:height" content="1024" />
+	<meta name="author" content="Carlos Rafael Gimenes das Neves" />
+	<meta name="description" content="Material e exemplos do workshop sobre PWA" />
+	<meta name="keywords" content="material, exemplos, workshop, pwa" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="apple-mobile-web-app-title" content="Workshop PWA" />
+	<link rel="apple-touch-icon" sizes="57x57" href="../assets/favicons/apple-icon-57x57.png" />
+	<link rel="apple-touch-icon" sizes="60x60" href="../assets/favicons/apple-icon-60x60.png" />
+	<link rel="apple-touch-icon" sizes="72x72" href="../assets/favicons/apple-icon-72x72.png" />
+	<link rel="apple-touch-icon" sizes="76x76" href="../assets/favicons/apple-icon-76x76.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="../assets/favicons/apple-icon-114x114.png" />
+	<link rel="apple-touch-icon" sizes="120x120" href="../assets/favicons/apple-icon-120x120.png" />
+	<link rel="apple-touch-icon" sizes="144x144" href="../assets/favicons/apple-icon-144x144.png" />
+	<link rel="apple-touch-icon" sizes="152x152" href="../assets/favicons/apple-icon-152x152.png" />
+	<link rel="apple-touch-icon" sizes="180x180" href="../assets/favicons/apple-icon-180x180.png" />
+	<link rel="icon" type="image/png" sizes="512x512" href="../assets/favicons/favicon-512x512.png" />
+	<link rel="icon" type="image/png" sizes="192x192" href="../assets/favicons/favicon-192x192.png" />
+	<link rel="icon" type="image/png" sizes="96x96" href="../assets/favicons/favicon-96x96.png" />
+	<link rel="icon" type="image/png" sizes="48x48" href="../assets/favicons/favicon-48x48.png" />
+	<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicons/favicon-32x32.png" />
+	<link rel="icon" type="image/png" sizes="16x16" href="../assets/favicons/favicon-16x16.png" />
+	<link rel="Shortcut Icon" href="../assets/favicons/favicon.png" />
+	<link rel="manifest" href="manifest.json" />
+	<meta name="msapplication-config" content="browserconfig.xml" />
+	<meta name="theme-color" content="#5a0fc8" />
+	<!-- Fim do conteúdo gerado pelo Favicon Helper -->
+
+	<title>
+		PWA de Exemplo 03
+	</title>
+
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600|Source+Code+Pro&display=swap" />
+	<link rel="stylesheet" type="text/css" href="../assets/css/style.css" />
+
+</head>
+<body>
+	<main>
+
+		<h1>
+			PWA de Exemplo 03
+		</h1>
+
+		<p>
+			Supondo que o PWA tenha mais de uma página, não são todas as páginas que precisam registrar o Service Worker para fazer com que ele funcione.
+		</p>
+
+		<p>
+			Nesse segundo exemplo, estamos simulando um PWA com duas páginas, e propositalmente não estamos registrando o Service Worker dentro da outra página.
+		</p>
+
+		<p>
+			Mesmo não registrando o Service Worker na próxima página, repare como as mensagens do Service Worker aparecerão no console.
+		</p>
+
+		<p class="alerta">
+			Estamos fazendo isso apenas para demonstrar o funcionamento do Service Worker.
+			Na vida real, convém registrar o Service Worker na próxima página, também, porque nunca se sabe por onde um usuário entrará em nosso site pela primeira vez 😉!
+		</p>
+
+		<p>
+			<a href="sub/">Ir para a próxima página do exemplo 03!</a>
+		</p>
+
+		<hr />
+
+		<p>
+			<small><a href="../">&laquo; Lista de exemplos</a></small>
+		</p>
+
+		<p>
+			<small><a href="../pwa02/">&laquo; Exemplo 02</a></small>
+		</p>
+
+		<p>
+			<small><a href="../pwa04/">Exemplo 04 &raquo;</a></small>
+		</p>
+
+		<p>
+			<small>O código-fonte e as explicações podem ser encontradas no <a href="https://github.com/tech-espm/labs-pwa" target="_blank">GitHub do projeto: github.com/tech-espm/labs-pwa</a> 😊.</small>
+		</p>
+
+	</main>
+
+	<script type="text/javascript">
+		"use strict";
+
+		// Devemos tomar cuidado para registrar o Service Worker apenas se o navegador atual entender o que é isso!
+		if ("serviceWorker" in navigator)
+			navigator.serviceWorker.register("sw.js");
+	</script>
+</body>
+</html>

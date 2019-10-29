@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<!-- Conteúdo gerado pelo Favicon Helper -->
+	<meta property="og:locale" content="pt_BR" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://tech-espm.github.io/labs-pwa" />
+	<meta property="og:title" content="Workshop PWA" />
+	<meta property="og:site_name" content="Workshop PWA" />
+	<meta property="og:description" content="Material e exemplos do workshop sobre PWA" />
+	<meta property="og:image" content="https://tech-espm.github.io/labs-pwa/assets/images/pwa.png" />
+	<meta property="og:image:type" content="image/png" />
+	<meta property="og:image:width" content="1024" />
+	<meta property="og:image:height" content="1024" />
+	<meta name="author" content="Carlos Rafael Gimenes das Neves" />
+	<meta name="description" content="Material e exemplos do workshop sobre PWA" />
+	<meta name="keywords" content="material, exemplos, workshop, pwa" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="apple-mobile-web-app-title" content="Workshop PWA" />
+	<link rel="apple-touch-icon" sizes="57x57" href="../assets/favicons/apple-icon-57x57.png" />
+	<link rel="apple-touch-icon" sizes="60x60" href="../assets/favicons/apple-icon-60x60.png" />
+	<link rel="apple-touch-icon" sizes="72x72" href="../assets/favicons/apple-icon-72x72.png" />
+	<link rel="apple-touch-icon" sizes="76x76" href="../assets/favicons/apple-icon-76x76.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="../assets/favicons/apple-icon-114x114.png" />
+	<link rel="apple-touch-icon" sizes="120x120" href="../assets/favicons/apple-icon-120x120.png" />
+	<link rel="apple-touch-icon" sizes="144x144" href="../assets/favicons/apple-icon-144x144.png" />
+	<link rel="apple-touch-icon" sizes="152x152" href="../assets/favicons/apple-icon-152x152.png" />
+	<link rel="apple-touch-icon" sizes="180x180" href="../assets/favicons/apple-icon-180x180.png" />
+	<link rel="icon" type="image/png" sizes="512x512" href="../assets/favicons/favicon-512x512.png" />
+	<link rel="icon" type="image/png" sizes="192x192" href="../assets/favicons/favicon-192x192.png" />
+	<link rel="icon" type="image/png" sizes="96x96" href="../assets/favicons/favicon-96x96.png" />
+	<link rel="icon" type="image/png" sizes="48x48" href="../assets/favicons/favicon-48x48.png" />
+	<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicons/favicon-32x32.png" />
+	<link rel="icon" type="image/png" sizes="16x16" href="../assets/favicons/favicon-16x16.png" />
+	<link rel="Shortcut Icon" href="../assets/favicons/favicon.png" />
+	<link rel="manifest" href="manifest.json" />
+	<meta name="msapplication-config" content="browserconfig.xml" />
+	<meta name="theme-color" content="#5a0fc8" />
+	<!-- Fim do conteúdo gerado pelo Favicon Helper -->
+
+	<title>
+		PWA de Exemplo 07
+	</title>
+
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600|Source+Code+Pro&display=swap" />
+	<link rel="stylesheet" type="text/css" href="../assets/css/style.css" />
+
+</head>
+<body>
+	<main>
+
+		<h1>
+			PWA de Exemplo 07
+		</h1>
+
+		<p>
+			Neste exemplo iremos explorar o funcionamento dos eventos <span class="codigo">install</span> e <span class="codigo">activate</span> dos Service Workers.
+		</p>
+
+		<p>
+			O evento <span class="codigo">install</span> acontece em algum momento depois da execução do método <span class="codigo">navigator.serviceWorker.register()</span>.
+			Neste momento, o Service Worker tem oportunidade de preparar todos os arquivos e configurações necessárias para que ele funcione corretamente.
+			Isso pode incluir a criação de um <a href="https://developer.mozilla.org/en-US/docs/Web/API/CacheStorage" target="_blank">cache</a> para armazenar os arquivos necessários para fazer o aplicativo funcionar offline.
+		</p>
+
+		<p>
+			Como já visto em exemplos anteriores, uma vez instalado, o Service Worker não começa a valer instantaneamente.
+			O mesmo ocorre quando ele é alterado, mas de forma ligeiramente diferente...
+		</p>
+
+		<img alt="Imagem de exemplo" src="abc.jpg" />
+
+		<img alt="Outra imagem de exemplo" src="def.jpg" />
+
+		<p>
+			Por exemplo, as imagens acima apontam para arquivos que propositalmente não existem.
+			Logo, na primeira vez que a página é aberta veremos dois erros, apesar do Service Worker tratar arquivos com extensão jpg.
+			Isso ocorre porque, como vimos anteriormente, o Service Worker ainda não estava instalado/ativo na primeira vez que a página foi aberta.
+			Mas o significado real dessa frase só pode ser compreendido com outro exemplo, já que alguém pode (erroneamente) pensar <i>"Claro! Na primeira vez, o Service Worker não tratou as imagens acima porque ele só foi registrado no final da página! Eu olhei nas ferramentas de desenvolvedor e vi que o Service Worker estava OK! Se aparecesse outra imagem <b>depois</b> do Service Worker ter sido registrado, ele teria tratado!"</i>.
+		</p>
+
+		<p>
+			Assim, por que não criar um botão para adicionar imagens dinamicamente 😁?
+			<button type="button" onclick="adicionarImagem()">Adicionar Imagem</button>
+		</p>
+		
+		<div id="divPai">
+			As novas imagens aparecerão aqui:
+		</div>
+		
+		<p>
+			O que ocorre quando você adiciona novas imagens???
+			Exatamente!
+			Nada de diferente!
+			Você continua recebendo erros!!!
+			Isso significa que o Service Worker, apesar de aparecer como OK (como na imagem abaixo), não está sendo utilizado para a página atual, por uma questão de coerência.
+		</p>
+
+		<img alt="Service Worker OK" src="../assets/images/swok.png" />
+
+		<p>
+			Se a página começou <b>sem</b> o Service Worker, o navegador deixa que ela continue vivendo <b>sem</b> o Service Worker.
+			Assim que você recarregar a página, ou fechar a aba e abrir de novo, a história muda, e, como o Service Worker já está instalado e ativo, ele será utilizado na página!
+		</p>
+
+		<p>
+			<b>Recomento fortemente que você atualize a página agora, para ver as barras pretas e brancas, e fazer a próxima parte do exemplo ter sentido 😁😁😁!</b>
+		</p>
+
+		<p>
+			Esse comportamento pode ser alterado utilizando o método <span class="codigo">clients.claim()</span>, mostrado <a href="https://developer.mozilla.org/en-US/docs/Web/API/Clients/claim" target="_blank">aqui</a>, e está relacionado com o evento <span class="codigo">activate</span>.
+			O passo-a-passo abaixo serve para ilustrar isso melhor.
+		</p>
+
+		<ol>
+			<li>
+				A página nunca foi visitada.
+			</li>
+
+			<li>
+				A página é visitada pela primeira vez, e o método <span class="codigo">navigator.serviceWorker.register()</span> é executado.
+			</li>
+
+			<li>
+				O Service Worker é baixado e instalado.
+			</li>
+
+			<li>
+				Ocorre o evento <span class="codigo">install</span> do Service Worker.
+				Nele, podemos passar uma Promise através do método <span class="codigo">waitUntil()</span> do evento, para dizer ao navegador que o processo de instalação ainda não acabou (veja o <a href="sw.js" target="_blank">código do Service Worker</a> para mais informações).
+			</li>
+
+			<li>
+				Assim que o processo de instalação termina, o que inclui a Promise passada para o método <span class="codigo">waitUntil()</span>, ocorre o evento <span class="codigo">activate</span>.
+				Nele, podemos passar uma Promise através do método <span class="codigo">waitUntil()</span> do evento, para dizer ao navegador que o processo de ativação ainda não acabou (veja o <a href="sw.js" target="_blank">código do Service Worker</a> para mais informações).
+				Ainda dentro do evento, é possível executar o método <span class="codigo">clients.claim()</span>, fazendo com que o Service Worker assuma o controle até mesmo das páginas que já estão abertas, e foram abertas <b>sem</b> o Service Worker.
+			</li>
+		</ol>
+
+		<p>
+			Quer ver isso acontecendo na prática?
+		</p>
+		
+		<ol>
+			<li>
+				Remova o registro do Service Worker atual.
+				<img alt="Remoção do Service Worker" src="../assets/images/swunregister.png" />
+			</li>
+
+			<li>
+				Edite o <a href="sw.js" target="_blank">arquivo do Service Worker</a>, removendo o comentário da linha
+				<br />
+				<span class="codigo">//clients.claim();</span>
+			</li>
+
+			<li>
+				Recarregue a página, e repare que a versão do Service Worker vai ter mudado (no exemplo, a versão antiga era #38).
+				<img alt="Service Worker OK" src="../assets/images/swok.png" />
+			</li>
+			
+			<li>
+				As duas imagens iniciais de exemplo voltarão a aparecer como erro, porque no momento do novo carregamento da página não existia um Service Worker instalado/ativo.
+				Porém, clique no botão "Adicionar Imagem" e veja que as novas imagens aparecem como as listras pretas e brancas, porque o Service Worker assumiu a página atual assim que sua ativação foi concluída!
+				É possível saber quais páginas estão sendo servidas pelo Service Worker olhando seus clientes:
+				<img alt="Clientes do Service Worker" src="../assets/images/swclients.png" />
+			</li>
+		</ol>
+
+		<div class="alerta">
+			<p>
+				Espero que uma coisa tenha ficado clara com os exemplos mostrados até aqui: os Service Workers são entidades à parte das páginas, e não meros scripts referenciados pelas páginas!
+				Eles têm seu próprio ciclo de vida!
+				O método <span class="codigo">navigator.serviceWorker.register()</span> serve apenas para dizer para o navegador: <i>"Se você ainda não instalou meu Service Worker, faça isso agora!"</i> (mas com educação 😁).
+			</p>
+			<p>
+				Quer mais uma prova disso?
+			</p>
+			<p>
+				Vá até lá embaixo, dentro da tag <span class="codigo">&lt;script&gt;</span>, e <b>comente</b> o trecho <span class="codigo">navigator.serviceWorker.register("sw.js");</span>.
+				Depois, atualize a página e veja que o navegador continua utilizando o Service Worker! Isso porque, uma vez registrado, o navegador só vai parar de utilizar o Service Worker para as páginas de seu escopo, se você <a href="https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/unregister" target="_blank">remover o registro do Service Worker</a>.
+			</p>
+		</div>
+
+		<hr />
+
+		<p>
+			<small><a href="../">&laquo; Lista de exemplos</a></small>
+		</p>
+
+		<p>
+			<small><a href="../pwa06/">&laquo; Exemplo 06</a></small>
+		</p>
+
+		<p>
+			<small><a href="../pwa08/">Exemplo 08 &raquo;</a></small>
+		</p>
+
+		<p>
+			<small>O código-fonte e as explicações podem ser encontradas no <a href="https://github.com/tech-espm/labs-pwa" target="_blank">GitHub do projeto: github.com/tech-espm/labs-pwa</a> 😊.</small>
+		</p>
+
+	</main>
+
+	<script type="text/javascript">
+		"use strict";
+
+		// Devemos tomar cuidado para registrar o Service Worker apenas se o navegador atual entender o que é isso!
+		if ("serviceWorker" in navigator)
+			navigator.serviceWorker.register("sw.js");
+
+		var contador = 0, divPai = document.getElementById("divPai");
+
+		function adicionarImagem() {
+			var img = document.createElement("img");
+			img.setAttribute("alt", "Imagem de exemplo");
+			img.setAttribute("src", contador + ".jpg");
+
+			divPai.appendChild(img);
+
+			contador++;
+		}
+	</script>
+</body>
+</html>

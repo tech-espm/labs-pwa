@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<!-- Conteúdo gerado pelo Favicon Helper -->
+	<meta property="og:locale" content="pt_BR" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://tech-espm.github.io/labs-pwa" />
+	<meta property="og:title" content="Workshop PWA" />
+	<meta property="og:site_name" content="Workshop PWA" />
+	<meta property="og:description" content="Material e exemplos do workshop sobre PWA" />
+	<meta property="og:image" content="https://tech-espm.github.io/labs-pwa/assets/images/pwa.png" />
+	<meta property="og:image:type" content="image/png" />
+	<meta property="og:image:width" content="1024" />
+	<meta property="og:image:height" content="1024" />
+	<meta name="author" content="Carlos Rafael Gimenes das Neves" />
+	<meta name="description" content="Material e exemplos do workshop sobre PWA" />
+	<meta name="keywords" content="material, exemplos, workshop, pwa" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="apple-mobile-web-app-title" content="Workshop PWA" />
+	<link rel="apple-touch-icon" sizes="57x57" href="../assets/favicons/apple-icon-57x57.png" />
+	<link rel="apple-touch-icon" sizes="60x60" href="../assets/favicons/apple-icon-60x60.png" />
+	<link rel="apple-touch-icon" sizes="72x72" href="../assets/favicons/apple-icon-72x72.png" />
+	<link rel="apple-touch-icon" sizes="76x76" href="../assets/favicons/apple-icon-76x76.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="../assets/favicons/apple-icon-114x114.png" />
+	<link rel="apple-touch-icon" sizes="120x120" href="../assets/favicons/apple-icon-120x120.png" />
+	<link rel="apple-touch-icon" sizes="144x144" href="../assets/favicons/apple-icon-144x144.png" />
+	<link rel="apple-touch-icon" sizes="152x152" href="../assets/favicons/apple-icon-152x152.png" />
+	<link rel="apple-touch-icon" sizes="180x180" href="../assets/favicons/apple-icon-180x180.png" />
+	<link rel="icon" type="image/png" sizes="512x512" href="../assets/favicons/favicon-512x512.png" />
+	<link rel="icon" type="image/png" sizes="192x192" href="../assets/favicons/favicon-192x192.png" />
+	<link rel="icon" type="image/png" sizes="96x96" href="../assets/favicons/favicon-96x96.png" />
+	<link rel="icon" type="image/png" sizes="48x48" href="../assets/favicons/favicon-48x48.png" />
+	<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicons/favicon-32x32.png" />
+	<link rel="icon" type="image/png" sizes="16x16" href="../assets/favicons/favicon-16x16.png" />
+	<link rel="Shortcut Icon" href="../assets/favicons/favicon.png" />
+	<link rel="manifest" href="manifest.json" />
+	<meta name="msapplication-config" content="browserconfig.xml" />
+	<meta name="theme-color" content="#5a0fc8" />
+	<!-- Fim do conteúdo gerado pelo Favicon Helper -->
+
+	<title>
+		PWA de Exemplo 01
+	</title>
+
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600|Source+Code+Pro&display=swap" />
+	<link rel="stylesheet" type="text/css" href="../assets/css/style.css" />
+
+</head>
+<body>
+	<main>
+
+		<h1>
+			PWA de Exemplo 01
+		</h1>
+
+		<p>
+			Este primeiro exemplo de PWA é muito simples e contém o mínimo necessário.
+			Ele é tão minimalista que sequer funciona corretamente offline, apesar de possuir um Service Worker.
+		</p>
+
+		<p>
+			Por definição, se não não funciona corretamente offline, nem deveria ser efetivamente considerado um PWA, já que um PWA deve funcionar, mesmo que minimamente, não importando o estado da rede...
+			Mas o nagevador acredita que estamos fazendo nosso trabalho direitinho! 😉
+		</p>
+
+		<p>
+			Se estivermos utilizando o Chrome 78, é possível saber se tudo deu certo caso o navegador nos ofereça a opção de instalar o aplicativo, além de não aparecerem alertas no item Manifest da aba Application.
+		</p>
+		
+		<img alt="Tela do navegador" src="../assets/images/pwaok.png" />
+
+		<h2>
+			Pontos Importantes
+		</h2>
+
+		<p>
+			É graças aos pontos abaixo que o navegador entende que esta página se trata, na verdade, de um PWA:
+		</p>
+
+		<ol>
+
+			<li>
+				Página servida via HTTPS (ou a partir de localhost / 127.0.0.1).
+			</li>
+
+			<li>
+				Presença do manifesto dentro da <span class="codigo">&lt;head&gt;</span>:
+				<br />
+				<span class="codigo">&lt;link rel="manifest" href="manifest.json" /&gt;</span>
+			</li>
+
+			<li>
+				Registro do Service Worker via código JavaScript (mais informações sobre o método na <a href="https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerContainer/register" target="_blank">MDN</a>):
+				<br />
+				<span class="codigo">navigator.serviceWorker.register("sw.js");</span>
+			</li>
+
+			<li>
+				Service Worker tratando, mesmo que minimamente, os eventos <span class="codigo">install</span> e <span class="codigo">fetch</span>.
+			</li>
+
+		</ol>
+		
+		<p class="alerta">
+			Cuidado!
+			<br />
+			Não se esqueça de validar a existência do Service Worker no navegador antes de efetuar seu registro!
+			<br />
+			<span class="codigo">if ("serviceWorker" in navigator)
+    navigator.serviceWorker.register("sw.js");</span>
+		</p>
+		
+		<p class="alerta">
+			Observe como as mensagens emitidas pelo Service Worker não aparecem no console na primeira vez que abrimos a página, mas aparecem em todas as próximas vezes.
+			Isso ocorre porque na primeira vez que a página foi aberta o Service Worker ainda não havia sido instalado/ativado.
+			Se você não reparou nisso, remova o Service Worker através das ferramentas de desenvolvimento, e recarregue a página 😁!
+		</p>
+
+		<hr />
+
+		<p>
+			<small><a href="../">&laquo; Lista de exemplos</a></small>
+		</p>
+
+		<p>
+			<small><a href="../pwa02/">Exemplo 02 &raquo;</a></small>
+		</p>
+
+		<p>
+			<small>O código-fonte e as explicações podem ser encontradas no <a href="https://github.com/tech-espm/labs-pwa" target="_blank">GitHub do projeto: github.com/tech-espm/labs-pwa</a> 😊.</small>
+		</p>
+
+	</main>
+
+	<script type="text/javascript">
+		"use strict";
+		
+		// Devemos tomar cuidado para registrar o Service Worker apenas se o navegador atual entender o que é isso!
+		if ("serviceWorker" in navigator)
+			navigator.serviceWorker.register("sw.js");
+	</script>
+</body>
+</html>

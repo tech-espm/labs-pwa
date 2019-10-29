@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<!-- Conteúdo gerado pelo Favicon Helper -->
+	<meta property="og:locale" content="pt_BR" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://tech-espm.github.io/labs-pwa" />
+	<meta property="og:title" content="Workshop PWA" />
+	<meta property="og:site_name" content="Workshop PWA" />
+	<meta property="og:description" content="Material e exemplos do workshop sobre PWA" />
+	<meta property="og:image" content="https://tech-espm.github.io/labs-pwa/assets/images/pwa.png" />
+	<meta property="og:image:type" content="image/png" />
+	<meta property="og:image:width" content="1024" />
+	<meta property="og:image:height" content="1024" />
+	<meta name="author" content="Carlos Rafael Gimenes das Neves" />
+	<meta name="description" content="Material e exemplos do workshop sobre PWA" />
+	<meta name="keywords" content="material, exemplos, workshop, pwa" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="apple-mobile-web-app-title" content="Workshop PWA" />
+	<link rel="apple-touch-icon" sizes="57x57" href="../assets/favicons/apple-icon-57x57.png" />
+	<link rel="apple-touch-icon" sizes="60x60" href="../assets/favicons/apple-icon-60x60.png" />
+	<link rel="apple-touch-icon" sizes="72x72" href="../assets/favicons/apple-icon-72x72.png" />
+	<link rel="apple-touch-icon" sizes="76x76" href="../assets/favicons/apple-icon-76x76.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="../assets/favicons/apple-icon-114x114.png" />
+	<link rel="apple-touch-icon" sizes="120x120" href="../assets/favicons/apple-icon-120x120.png" />
+	<link rel="apple-touch-icon" sizes="144x144" href="../assets/favicons/apple-icon-144x144.png" />
+	<link rel="apple-touch-icon" sizes="152x152" href="../assets/favicons/apple-icon-152x152.png" />
+	<link rel="apple-touch-icon" sizes="180x180" href="../assets/favicons/apple-icon-180x180.png" />
+	<link rel="icon" type="image/png" sizes="512x512" href="../assets/favicons/favicon-512x512.png" />
+	<link rel="icon" type="image/png" sizes="192x192" href="../assets/favicons/favicon-192x192.png" />
+	<link rel="icon" type="image/png" sizes="96x96" href="../assets/favicons/favicon-96x96.png" />
+	<link rel="icon" type="image/png" sizes="48x48" href="../assets/favicons/favicon-48x48.png" />
+	<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicons/favicon-32x32.png" />
+	<link rel="icon" type="image/png" sizes="16x16" href="../assets/favicons/favicon-16x16.png" />
+	<link rel="Shortcut Icon" href="../assets/favicons/favicon.png" />
+	<link rel="manifest" href="manifest.json" />
+	<meta name="msapplication-config" content="browserconfig.xml" />
+	<meta name="theme-color" content="#5a0fc8" />
+	<!-- Fim do conteúdo gerado pelo Favicon Helper -->
+
+	<title>
+		PWA de Exemplo 02
+	</title>
+
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600|Source+Code+Pro&display=swap" />
+	<link rel="stylesheet" type="text/css" href="../assets/css/style.css" />
+
+</head>
+<body>
+	<main>
+
+		<h1>
+			PWA de Exemplo 02
+		</h1>
+
+		<p>
+			Além de contar com a notificação de instalação padrão do navegador, é possível criar nossa própria notificação de instalação, através do evento <span class="codigo">beforeinstallprompt</span>.
+		</p>
+
+		<p>
+			A ideia por detrás desse evento é que nós podemos armazenar a notificação, e chamá-la em um momento futuro, por exemplo, quando o usuário clicar em um botão da nossa página.
+		</p>
+
+		<p>
+			Só devemos ter o cuidado de <b>não mostrar</b> nossa UI de instalação <b>antes</b> do navegador executar o evento!
+		</p>
+
+		<p>
+			Além disso, devemos ter mais um cuidado de ocultar nossa UI de instalação <b>depois</b> de termos exibido a notificação, porque ela é de uso único!
+		</p>
+
+		<p class="alerta">
+			Não precisamos nos preocupar com o fato de esconder nossa UI de instalação, porque é comum o navegador executar o evento <span class="codigo">beforeinstallprompt</span> mais de uma vez, caso o usuário opte por não instalar o aplicativo 😅.
+		</p>
+
+		<p>
+			Mais informações sobre esse assunto podem ser encontradas na <a href="https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Add_to_home_screen">MDN</a> e no <a href="https://developers.google.com/web/fundamentals/app-install-banners/">Google</a>.
+		</p>
+
+		<p>
+			Nossa UI de instalação é o botão ao lado (que pode ou não estar visível):
+			<button id="btnInstalar" type="button" style="display: none;" onclick="instalarPWA()">Instalar PWA!</button>
+		</p>
+		
+		<hr />
+
+		<p>
+			<small><a href="../">&laquo; Lista de exemplos</a></small>
+		</p>
+
+		<p>
+			<small><a href="../pwa01/">&laquo; Exemplo 01</a></small>
+		</p>
+
+		<p>
+			<small><a href="../pwa03/">Exemplo 03 &raquo;</a></small>
+		</p>
+
+		<p>
+			<small>O código-fonte e as explicações podem ser encontradas no <a href="https://github.com/tech-espm/labs-pwa" target="_blank">GitHub do projeto: github.com/tech-espm/labs-pwa</a> 😊.</small>
+		</p>
+
+	</main>
+
+	<script type="text/javascript">
+		"use strict";
+		
+		var notificacao = null, btnInstalar = document.getElementById("btnInstalar");
+		
+		function instalarPWA() {
+			if (notificacao) {
+				// Oculta o botão, mostra a notificação e já a define como null, prevenindo novos usos futuros
+				btnInstalar.style.display = "none";
+				notificacao.prompt();
+				notificacao = null;
+			}
+		}
+		
+		// Devemos tomar cuidado para registrar o Service Worker apenas se o navegador atual entender o que é isso!
+		if ("serviceWorker" in navigator)
+			navigator.serviceWorker.register("sw.js");
+		
+		// Idem para o caso abaixo!
+		if ("onbeforeinstallprompt" in window)
+			window.onbeforeinstallprompt = function (e) {
+				// Previne a mensagem padrão, armazena a notificação, e mostra o botão
+				e.preventDefault();
+				notificacao = e;
+				btnInstalar.style.display = "";
+			};
+	</script>
+</body>
+</html>

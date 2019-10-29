@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<!-- Conteúdo gerado pelo Favicon Helper -->
+	<meta property="og:locale" content="pt_BR" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://tech-espm.github.io/labs-pwa" />
+	<meta property="og:title" content="Workshop PWA" />
+	<meta property="og:site_name" content="Workshop PWA" />
+	<meta property="og:description" content="Material e exemplos do workshop sobre PWA" />
+	<meta property="og:image" content="https://tech-espm.github.io/labs-pwa/assets/images/pwa.png" />
+	<meta property="og:image:type" content="image/png" />
+	<meta property="og:image:width" content="1024" />
+	<meta property="og:image:height" content="1024" />
+	<meta name="author" content="Carlos Rafael Gimenes das Neves" />
+	<meta name="description" content="Material e exemplos do workshop sobre PWA" />
+	<meta name="keywords" content="material, exemplos, workshop, pwa" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="apple-mobile-web-app-title" content="Workshop PWA" />
+	<link rel="apple-touch-icon" sizes="57x57" href="../assets/favicons/apple-icon-57x57.png" />
+	<link rel="apple-touch-icon" sizes="60x60" href="../assets/favicons/apple-icon-60x60.png" />
+	<link rel="apple-touch-icon" sizes="72x72" href="../assets/favicons/apple-icon-72x72.png" />
+	<link rel="apple-touch-icon" sizes="76x76" href="../assets/favicons/apple-icon-76x76.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="../assets/favicons/apple-icon-114x114.png" />
+	<link rel="apple-touch-icon" sizes="120x120" href="../assets/favicons/apple-icon-120x120.png" />
+	<link rel="apple-touch-icon" sizes="144x144" href="../assets/favicons/apple-icon-144x144.png" />
+	<link rel="apple-touch-icon" sizes="152x152" href="../assets/favicons/apple-icon-152x152.png" />
+	<link rel="apple-touch-icon" sizes="180x180" href="../assets/favicons/apple-icon-180x180.png" />
+	<link rel="icon" type="image/png" sizes="512x512" href="../assets/favicons/favicon-512x512.png" />
+	<link rel="icon" type="image/png" sizes="192x192" href="../assets/favicons/favicon-192x192.png" />
+	<link rel="icon" type="image/png" sizes="96x96" href="../assets/favicons/favicon-96x96.png" />
+	<link rel="icon" type="image/png" sizes="48x48" href="../assets/favicons/favicon-48x48.png" />
+	<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicons/favicon-32x32.png" />
+	<link rel="icon" type="image/png" sizes="16x16" href="../assets/favicons/favicon-16x16.png" />
+	<link rel="Shortcut Icon" href="../assets/favicons/favicon.png" />
+	<link rel="manifest" href="manifest.json" />
+	<meta name="msapplication-config" content="browserconfig.xml" />
+	<meta name="theme-color" content="#5a0fc8" />
+	<!-- Fim do conteúdo gerado pelo Favicon Helper -->
+
+	<title>
+		PWA de Exemplo 04
+	</title>
+
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600|Source+Code+Pro&display=swap" />
+	<link rel="stylesheet" type="text/css" href="../assets/css/style.css" />
+
+</head>
+<body>
+	<main>
+
+		<h1>
+			PWA de Exemplo 04
+		</h1>
+
+		<p>
+			Como isso é um workshop, com uma série de exemplos que simulam aplicativos diferentes, estamos criando diversos arquivos <span class="codigo">sw.js</span>.
+		</p>
+
+		<p>
+			Na vida real, é suficiente criar um único Service Worker por aplicativo, a não ser que seja necessário diferenciar seu comportamento, por alguma razão, em páginas diferentes.
+		</p>
+
+		<p>
+			Isso nos leva a um ponto muito importante sobre Service Workers que é seu <b>escopo</b>!
+		</p>
+
+		<p>
+			Repare que nessa página estamos registrando o Service Worker no arquivo <span class="codigo">/pwa04/sub/sw.js</span>, que está em um subdiretório do exemplo 04.
+		</p>
+
+		<p>
+			Por mais que você atualize a página atual, as mensagens do Service Worker não aparecerão no console, porque ele não é utilizado para atender as requisições dessa página!
+			Isso porque <b>o escopo padrão do Service Worker é o dietório de seu arquivo, junto com seus subdiretórios!</b>
+		</p>
+
+		<p>
+			No exemplo 03 o arquivo do Service Worker estava no arquivo <span class="codigo">/pwa03/sw.js</span>.
+			A segunda página estava no diretório <span class="codigo">/pwa03/sub/</span>, que por ser um subdiretório do local onde o Service Worker estava, também era servido pelo Service Worker.
+		</p>
+
+		<p>
+			Aqui, no exemplo 04, a situação é diferente. O arquivo do Service Worker está em <span class="codigo">/pwa04/sub/sw.js</span>.
+			Logo, ele funcionará na próxima página, mas não aqui!
+		</p>
+
+		<p>
+			Podemos perceber que isso é verdade, já que o navegador não ofereceu instalar esse PWA...
+			Porque como não temos um Service Worker aqui, o navegador não reconhece o exemplo 04 como um PWA!
+			Nem mesmo a próxima página é considerada um PWA, porque o <span class="codigo">start_url</span> do manifesto aponta para cá, e não temos um Service Worker aqui 😢!
+		</p>
+
+		<p>
+			<a href="sub/">Ir para a próxima página do exemplo 04!</a>
+		</p>
+
+		<hr />
+
+		<p>
+			<small><a href="../">&laquo; Lista de exemplos</a></small>
+		</p>
+
+		<p>
+			<small><a href="../pwa03/">&laquo; Exemplo 03</a></small>
+		</p>
+
+		<p>
+			<small><a href="../pwa05/">Exemplo 05 &raquo;</a></small>
+		</p>
+
+		<p>
+			<small>O código-fonte e as explicações podem ser encontradas no <a href="https://github.com/tech-espm/labs-pwa" target="_blank">GitHub do projeto: github.com/tech-espm/labs-pwa</a> 😊.</small>
+		</p>
+
+	</main>
+
+	<script type="text/javascript">
+		"use strict";
+
+		// Devemos tomar cuidado para registrar o Service Worker apenas se o navegador atual entender o que é isso!
+		if ("serviceWorker" in navigator)
+			navigator.serviceWorker.register("sub/sw.js");
+	</script>
+</body>
+</html>
