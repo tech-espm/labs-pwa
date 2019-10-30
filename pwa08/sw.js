@@ -11,7 +11,7 @@ self.addEventListener("install", function (e) {
 	// Caso estejamos atualizando o Service Worker, basta executar a linha abaixo para
 	// dizer ao navegador que, assim que o processo de instalação estiver concluído,
 	// não é necessário esperar que todos os clientes fechem para executar a ativação:
-	self.skipWaiting();
+	//self.skipWaiting();
 });
 
 self.addEventListener("activate", function (e) {
