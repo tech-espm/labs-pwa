@@ -85,7 +85,7 @@
 
 		<p>
 			Por fim, o arquivo <a href="sw3.js" target="_blank">sw3.js</a> mostra uma possível técnica de lidar com casos quando o aplicativo (um jogo, por exemplo) sofrer alterações.
-			Como estamos usando o cache antes de ir buscar na rede, o usuário poderia nunca ver a noa versão do jogo! 😱
+			Como estamos usando o cache antes de ir buscar na rede, o usuário poderia nunca ver a nova versão do jogo! 😱
 			Assim, para que o usuário final veja as alterações, basta alterar algo no Service Worker, como a string com o nome do cache, o que fará com que o navegador reinstale o Service Worker.
 			Nesse momento criamos um cache com um novo nome, e esperamos o evento <span class="codigo">activate</span> (que indica que nenhum outro cliente está mais utilizando as versões antigas do Service Worker) para excluir o(s) cache(s) antigo(s), removendo dados inúteis do dispositivo do usuário.
 		</p>
