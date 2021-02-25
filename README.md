@@ -16,7 +16,7 @@ Contudo, não será possível experimentar o PWA na maioria dos navegadores mode
 
 Para isso, é necessário utilizar alguma IDE ou ambiente que execute um servidor local por nós. Poderíamos utilizar um servidor [Apache](https://www.apache.org/) (sozinho ou através do [XAMPP](https://www.apachefriends.org/pt_br/index.html) ou do [WampServer](http://www.wampserver.com/en/)), o próprio [IIS](https://pt.stackoverflow.com/questions/185603/como-ativar-o-iis-no-windows-10) (para usuários de Windows), ou IDE's como [Brackets](http://brackets.io/), [eclipse](https://www.eclipse.org/downloads/packages/), [VS Code](https://code.visualstudio.com/), [Visual Studio Community](https://visualstudio.microsoft.com/pt-br/downloads/), dentre uma infinidade de outros ambientes e IDE's (impossível enumerar todos aqui, sério! 😱).
 
-Para referência futura, este material foi originalmente publicado em **outubro de 2019** e pode sofrer alterações ao longo do tempo.
+Para referência futura, este material foi originalmente publicado em **outubro de 2019**, revisado em **fevereiro de 2021**, e pode sofrer alterações ao longo do tempo.
 
 Vamos em frente!
 
