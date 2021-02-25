@@ -141,6 +141,7 @@ Como o assunto é bem extenso, seria muito difícil abordar todos os tópicos re
 
 # Exemplos de PWA's Reais
 
+- [Pixel](https://carlosrafaelgn.github.io/pixel/)
 - [Neon](https://carlosrafaelgn.github.io/neon/)
 - [Favicon Helper](https://carlosrafaelgn.github.io/favicon/)
 - [Editor HTML](https://tech-espm.github.io/labs-editor/)
